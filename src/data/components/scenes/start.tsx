@@ -1,10 +1,15 @@
-import AssetManager from "./../engine/assetmanager";
-import SceneManager from "./../engine/scenemanager";
-import Actions from "./../engine/actions";
 import * as React from "react";
+import AssetManager from "./../../../engine/scripts/assetmanager";
+import Actions from "./../../../engine/scripts/actions";
+import BaseScene from "./../../../engine/components/basescene";
 
-SceneManager["start"] = {
-  output: scene => {
+export default class Scene extends BaseScene {
+  constructor(props) {
+    super(props);
+    this.state.Id = "start";
+  }
+
+  output() {
     return (
       <div>
         <img
@@ -25,8 +30,9 @@ SceneManager["start"] = {
         </button>
       </div>
     );
-  },
-  OnEnter: () => {},
-  OnShow: () => {},
-  OnExit: () => {}
-};
+  }
+}
+
+/*
+ 
+      */
