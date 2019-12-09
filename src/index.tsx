@@ -3,14 +3,16 @@ import { render } from "react-dom";
 
 import "./styles.css";
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
-    </div>//
-  );
-}
+import AssetManager from "./engine/assetmanager";
+import Scene from "./components/scene";
+import "./scenes/scenes";
+
+AssetManager.IsExternal = true;
+AssetManager.ExternalPrependURL = "http://efsdeveloper.com/codesandboxtest/";
+AssetManager.InternalPrependURL = "./";
+AssetManager.URLs["start"] = "images/start/game.png";
 
 const rootElement = document.getElementById("root");
-render(<App />, rootElement);
+render(<Scene />, rootElement);
+
+//Actions.HandleLoadScene = scene.HandleLoadScene;
