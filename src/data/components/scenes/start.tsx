@@ -2,9 +2,11 @@ import * as React from "react";
 import AssetManager from "./../../../engine/scripts/assetmanager";
 import Actions from "./../../../engine/scripts/actions";
 import BaseScene from "./../../../engine/components/basescene";
+import Image from "./../../../engine/components/image";
 import Hotspot from "./../../../engine/extensions/missionus/components/hotspot";
 
 AssetManager.URLs["scene_start_background"] = "images/scenes/start/game.png";
+AssetManager.URLs["scene_start_train"] = "images/scenes/start/train_2k.png";
 
 export default class Scene extends BaseScene {
   constructor(props) {
@@ -40,7 +42,12 @@ export default class Scene extends BaseScene {
           iconWidth={50}
           onClick={id => Actions.loadScene("prologue")}
         >
-          <button>start</button>
+          <Image
+            id="hotspot"
+            upImage="icon_use_up"
+            overImage="icon_use_over"
+            downImage="icon_use_over"
+          />
         </Hotspot>
       </div>
     );

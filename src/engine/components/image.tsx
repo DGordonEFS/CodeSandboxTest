@@ -5,11 +5,52 @@ import AssetManager from "./../scripts/assetmanager";
 export default class Image extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { mouseState: 0 };
+    this.state = { mouseState: 0, suppliedMouseState: 0 };
+
+    this.onMouseEnter = this.onMouseEnter.bind(this);
+    this.onMouseLeave = this.onMouseLeave.bind(this);
+    this.onMouseDown = this.onMouseDown.bind(this);
+    this.onMouseUp = this.onMouseUp.bind(this);
+  }
+
+  onMouseEnter() {
+    this.setState({ mouseState: 1 });
+    if (this.props.onMouseEnter !== undefined) this.props.onMouseEnter();
+  }
+
+  onMouseLeave() {
+    this.setState({ mouseState: 0 });
+    if (this.props.onMouseLeave !== undefined) this.props.onMouseLeave();
+  }
+
+  onMouseDown() {
+    this.setState({ mouseState: 2 });
+    if (this.props.onMouseDown !== undefined) this.props.onMouseDown();
+  }
+
+  onMouseUp() {
+    this.setState({ mouseState: 0 });
+    if (this.props.onMouseUp !== undefined) this.props.onMouseUp();
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (
+      nextProps.mouseState !== undefined &&
+      nextProps.mouseState !== prevState.suppliedMouseState
+    ) {
+      return { suppliedMouseState: nextProps.mouseState };
+    } else return null;
   }
 
   render() {
     var imageURL = "";
+
+    //console.log(this.props.id + ", " + this.state.suppliedMouseState);
+
+    var mouseState = Math.max(
+      this.state.mouseState,
+      this.state.suppliedMouseState
+    );
 
     var upImage = this.props.upImage;
     var overImage =
@@ -21,7 +62,7 @@ export default class Image extends React.Component {
         ? this.props.downImage
         : this.props.upImage;
 
-    switch (this.state.mouseState) {
+    switch (mouseState) {
       case 0:
         imageURL = AssetManager.GetImage(upImage);
         break;
@@ -39,19 +80,38 @@ export default class Image extends React.Component {
 
     var draggable =
       this.props.draggable !== undefined ? this.props.draggable : false;
-    return (
-      <img
-        src={imageURL}
-        alt="img"
-        style={style}
-        draggable={draggable}
-        onMouseEnter={() => this.setState({ mouseState: 1 })}
-        onMouseLeave={() => this.setState({ mouseState: 0 })}
-        onMouseDown={() => this.setState({ mouseState: 2 })}
-        onMouseUp={() => this.setState({ mouseState: 0 })}
-      >
-        {this.props.children}
-      </img>
-    );
+
+    var isButton = this.props.isButton;
+
+    if (!isButton) {
+      return (
+        <img
+          src={imageURL}
+          alt={imageURL}
+          style={style}
+          draggable={draggable}
+          onMouseEnter={() => this.onMouseEnter()}
+          onMouseLeave={() => this.onMouseLeave()}
+          onMouseDown={() => this.onMouseDown()}
+          onMouseUp={() => this.onMouseUp()}
+        >
+          {this.props.children}
+        </img>
+      );
+    } else {
+      return (
+        <button
+          style={this.props.buttonStyle}
+          draggable={draggable}
+          onMouseEnter={() => this.onMouseEnter()}
+          onMouseLeave={() => this.onMouseLeave()}
+          onMouseDown={() => this.onMouseDown()}
+          onMouseUp={() => this.onMouseUp()}
+        >
+          {this.props.buttonText}
+          {this.props.children}
+        </button>
+      );
+    }
   }
 }
