@@ -47,6 +47,11 @@ export default class Scene extends BaseScene {
             upImage="icon_use_up"
             overImage="icon_use_over"
             downImage="icon_use_over"
+            isButton="true"
+            text="hello"
+            upStyle={{ color: "black" }}
+            overStyle={{ color: "grey" }}
+            downStyle={{ color: "red" }}
           />
         </Hotspot>
       </div>

@@ -52,38 +52,38 @@ export default class Image extends React.Component {
       this.state.suppliedMouseState
     );
 
-    var upImage = this.props.upImage;
-    var overImage =
-      this.props.overImage !== undefined
-        ? this.props.overImage
-        : this.props.upImage;
-    var downImage =
-      this.props.downImage !== undefined
-        ? this.props.downImage
-        : this.props.upImage;
-
-    switch (mouseState) {
-      case 0:
-        imageURL = AssetManager.GetImage(upImage);
-        break;
-
-      case 1:
-        imageURL = AssetManager.GetImage(overImage);
-        break;
-
-      case 2:
-        imageURL = AssetManager.GetImage(downImage);
-        break;
-    }
-
-    var style = { width: this.props.width };
-
     var draggable =
       this.props.draggable !== undefined ? this.props.draggable : false;
 
     var isButton = this.props.isButton;
 
     if (!isButton) {
+      var upImage = this.props.upImage;
+      var overImage =
+        this.props.overImage !== undefined
+          ? this.props.overImage
+          : this.props.upImage;
+      var downImage =
+        this.props.downImage !== undefined
+          ? this.props.downImage
+          : this.props.upImage;
+
+      switch (mouseState) {
+        case 0:
+          imageURL = AssetManager.GetImage(upImage);
+          break;
+
+        case 1:
+          imageURL = AssetManager.GetImage(overImage);
+          break;
+
+        case 2:
+          imageURL = AssetManager.GetImage(downImage);
+          break;
+      }
+
+      var style = { width: this.props.width };
+
       return (
         <img
           src={imageURL}
@@ -99,16 +99,29 @@ export default class Image extends React.Component {
         </img>
       );
     } else {
+      var style = this.props.upStyle;
+
+      switch (mouseState) {
+        case 1:
+          style = this.props.overStyle;
+          break;
+        case 2:
+          style = this.props.downStyle;
+          break;
+      }
+
+      //  style["pointerEvents"] = "none";
+
       return (
         <button
-          style={this.props.buttonStyle}
+          style={style}
           draggable={draggable}
           onMouseEnter={() => this.onMouseEnter()}
           onMouseLeave={() => this.onMouseLeave()}
           onMouseDown={() => this.onMouseDown()}
           onMouseUp={() => this.onMouseUp()}
         >
-          {this.props.buttonText}
+          {this.props.text}
           {this.props.children}
         </button>
       );
