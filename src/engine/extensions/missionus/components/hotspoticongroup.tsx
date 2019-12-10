@@ -48,6 +48,7 @@ export default class HotspotIconGroup extends React.Component {
             overImage="icon_talk_over"
             downImage="icon_talk_down"
             width={this.props.width}
+            rotation={this.props.rotation}
             mouseState={this.props.mouseState}
             onMouseEnter={() => this.onMouseEnter()}
             onMouseLeave={() => this.onMouseLeave()}
@@ -56,10 +57,34 @@ export default class HotspotIconGroup extends React.Component {
           />
         </Icon>
         <Icon type="look">
-          <button>look</button>
+          <Image
+            id="look"
+            upImage="icon_look_up"
+            overImage="icon_look_over"
+            downImage="icon_look_down"
+            width={this.props.width}
+            mouseState={this.props.mouseState}
+            rotation={this.props.rotation}
+            onMouseEnter={() => this.onMouseEnter()}
+            onMouseLeave={() => this.onMouseLeave()}
+            onMouseDown={() => this.onMouseDown()}
+            onMouseUp={() => this.onMouseUp()}
+          />
         </Icon>
         <Icon type="use">
-          <button>use</button>
+          <Image
+            id="use"
+            upImage="icon_use_up"
+            overImage="icon_use_over"
+            downImage="icon_use_down"
+            width={this.props.width}
+            mouseState={this.props.mouseState}
+            rotation={this.props.rotation}
+            onMouseEnter={() => this.onMouseEnter()}
+            onMouseLeave={() => this.onMouseLeave()}
+            onMouseDown={() => this.onMouseDown()}
+            onMouseUp={() => this.onMouseUp()}
+          />
         </Icon>
       </IconGroup>
     );

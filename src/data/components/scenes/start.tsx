@@ -6,7 +6,6 @@ import Image from "./../../../engine/components/image";
 import Hotspot from "./../../../engine/extensions/missionus/components/hotspot";
 
 AssetManager.URLs["scene_start_background"] = "images/scenes/start/game.png";
-AssetManager.URLs["scene_start_train"] = "images/scenes/start/train_2k.png";
 
 export default class Scene extends BaseScene {
   constructor(props) {
@@ -36,13 +35,21 @@ export default class Scene extends BaseScene {
           x={350}
           y={250}
           id="start_btn"
-          iconType="talk"
+          iconType=""
           iconX={40}
           iconY={-30}
           iconWidth={50}
-          onClick={id => Actions.loadScene("prologue")}
+          onClick={id => Actions.loadScene("loc_camp_day")}
         >
-          <Image
+          <button>New Game</button>
+        </Hotspot>
+      </div>
+    );
+  }
+}
+
+/*
+<Image
             id="hotspot"
             upImage="icon_use_up"
             overImage="icon_use_over"
@@ -53,12 +60,4 @@ export default class Scene extends BaseScene {
             overStyle={{ color: "grey" }}
             downStyle={{ color: "red" }}
           />
-        </Hotspot>
-      </div>
-    );
-  }
-}
-
-/*
- 
-      */
+          */

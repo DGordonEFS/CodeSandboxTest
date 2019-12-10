@@ -2,7 +2,7 @@ import * as React from "react";
 import BaseSceneManager from "./../../../engine/components/basescenemanager";
 
 import StartScene from "./start";
-import PrologueScene from "./prologue";
+import LocCampDayScene from "./loc_camp_day";
 import EpilogueScene from "./epilogue";
 
 export default class SceneManager extends BaseSceneManager {
@@ -10,7 +10,7 @@ export default class SceneManager extends BaseSceneManager {
     return (
       <div>
         <StartScene onAdded={this.addScene} />
-        <PrologueScene onAdded={this.addScene} />
+        <LocCampDayScene onAdded={this.addScene} />
         <EpilogueScene onAdded={this.addScene} />
       </div>
     );

@@ -5,12 +5,21 @@ import AssetManager from "./../scripts/assetmanager";
 export default class Image extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { mouseState: 0, suppliedMouseState: 0 };
+    this.state = {
+      mouseState: 0,
+      suppliedMouseState: 0,
+      visible: this.props.visible !== false
+    };
 
     this.onMouseEnter = this.onMouseEnter.bind(this);
     this.onMouseLeave = this.onMouseLeave.bind(this);
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
+    this.getDisplay = this.getDisplay.bind(this);
+  }
+
+  getDisplay() {
+    return this.state.visible ? "initial" : "none";
   }
 
   onMouseEnter() {
@@ -52,6 +61,13 @@ export default class Image extends React.Component {
       this.state.suppliedMouseState
     );
 
+    var rotation = {
+      transform: `rotate(${
+        this.props.rotation !== undefined ? this.props.rotation : 0
+      }deg)`,
+      display: this.getDisplay()
+    };
+
     var draggable =
       this.props.draggable !== undefined ? this.props.draggable : false;
 
@@ -86,7 +102,7 @@ export default class Image extends React.Component {
         <img
           src={imageURL}
           alt={imageURL}
-          style={{ width: this.props.width }}
+          style={{ ...{ width: this.props.width }, ...rotation }}
           draggable={draggable}
           onMouseEnter={() => this.onMouseEnter()}
           onMouseLeave={() => this.onMouseLeave()}
@@ -107,6 +123,8 @@ export default class Image extends React.Component {
           style = this.props.downStyle;
           break;
       }
+
+      style = { ...style, rotation };
 
       //  style["pointerEvents"] = "none";
 

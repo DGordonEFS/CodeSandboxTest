@@ -1,10 +1,9 @@
 import * as React from "react";
-import Image from "./image";
 
 export default class BaseHotspot extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { visible: true, mouseState: 0 };
+    this.state = { visible: this.props.visible !== false, mouseState: 0 };
     this.getDisplay = this.getDisplay.bind(this);
     this.onClick = this.onClick.bind(this);
 
@@ -49,13 +48,22 @@ export default class BaseHotspot extends React.Component {
   }
 
   render() {
+    var rotation = {
+      transform: `rotate(${
+        this.props.rotation !== undefined ? this.props.rotation : 0
+      }deg)`
+    };
+
     return (
       <div
         style={{
-          display: this.getDisplay(),
-          position: "absolute",
-          left: this.props.x,
-          top: this.props.y
+          ...{
+            display: this.getDisplay(),
+            position: "absolute",
+            left: this.props.x,
+            top: this.props.y
+          },
+          ...rotation
         }}
         onClick={() => this.onClick()}
         onMouseEnter={e => this.onMouseEnter()}
