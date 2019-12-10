@@ -4,34 +4,42 @@ import GameFlags from "./../scripts/gameflags";
 import SaveManager from "./../scripts/savemanager";
 
 export default class BaseSceneManager extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { sceneId: "", scenes: {} };
-    this.handleLoadScene = this.handleLoadScene.bind(this);
-    this.handleMount = this.handleMount.bind(this);
+  scenes = {};
 
-    Actions.LoadScene = this.handleLoadScene;
+  get currentScene() {
+    return this.scenes[GameFlags.CurrentScene];
   }
 
-  handleLoadScene(id) {
-    var lastScene = this.state.scenes[GameFlags.CurrentScene];
+  constructor(props) {
+    super(props);
+    this.state = { sceneId: "" };
+    this.loadScene = this.loadScene.bind(this);
+    this.addScene = this.addScene.bind(this);
 
-    if (lastScene !== undefined) lastScene.OnExit();
+    Actions.loadScene = this.loadScene;
+    Actions.setHotspotVisible = this.setHotspotVisible;
+  }
+
+  loadScene(id) {
+    var lastScene = this.scenes[GameFlags.CurrentScene];
+
+    if (lastScene !== undefined) lastScene.onExit();
 
     GameFlags.CurrentScene = id;
     this.setState({ sceneId: id });
     SaveManager.Save();
-    var currentScene = this.state.scenes[GameFlags.CurrentScene];
-    if (currentScene !== undefined) {
-      currentScene.OnEnter();
-      currentScene.OnShow();
+    if (this.currentScene !== undefined) {
+      this.currentScene.onEnter();
+      this.currentScene.onShow();
     }
   }
 
-  handleMount(id, scene) {
-    var scenes = this.state.scenes;
-    scenes[id] = scene;
-    this.setState({ scenes: scenes });
+  setHotspotVisible(id, vis) {
+    this.currentScene.setHotspotVisible(id, vis);
+  }
+
+  addScene(id, scene) {
+    this.scenes[id] = scene;
   }
 
   render() {

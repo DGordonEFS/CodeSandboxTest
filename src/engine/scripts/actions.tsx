@@ -1,6 +1,6 @@
 var Actions = {};
-Actions.LoadScene = id => {};
-Actions.Wait = milliseconds => {
+Actions.loadScene = id => {};
+Actions.wait = milliseconds => {
   return new Promise(resolve => setTimeout(resolve, milliseconds));
 };
 

@@ -9,9 +9,9 @@ export default class SceneManager extends BaseSceneManager {
   render() {
     return (
       <div>
-        <StartScene onMounted={this.handleMount} />
-        <PrologueScene onMounted={this.handleMount} />
-        <EpilogueScene onMounted={this.handleMount} />
+        <StartScene onAdded={this.addScene} />
+        <PrologueScene onAdded={this.addScene} />
+        <EpilogueScene onAdded={this.addScene} />
       </div>
     );
   }

@@ -2,11 +2,19 @@ import * as React from "react";
 import AssetManager from "./../../../engine/scripts/assetmanager";
 import Actions from "./../../../engine/scripts/actions";
 import BaseScene from "./../../../engine/components/basescene";
+import Hotspot from "./../../../engine/extensions/missionus/components/hotspot";
+
+AssetManager.URLs["scene_start_background"] = "images/scenes/start/game.png";
 
 export default class Scene extends BaseScene {
   constructor(props) {
     super(props);
     this.state.Id = "start";
+  }
+
+  onEnter() {
+    console.log("start");
+    //Actions.setHotspotVisible("")
   }
 
   output() {
@@ -19,15 +27,21 @@ export default class Scene extends BaseScene {
             left: "0px",
             width: "800px"
           }}
-          src={AssetManager.GetImage("start")}
+          src={AssetManager.GetImage("scene_start_background")}
           alt="img"
         />
-        <button
-          style={{ position: "absolute", left: "500px" }}
-          onClick={() => Actions.LoadScene("prologue")}
+        <Hotspot
+          x={350}
+          y={250}
+          id="start_btn"
+          iconType="talk"
+          iconX={40}
+          iconY={-30}
+          iconWidth={50}
+          onClick={id => Actions.loadScene("prologue")}
         >
-          Start Game
-        </button>
+          <button>start</button>
+        </Hotspot>
       </div>
     );
   }

@@ -9,18 +9,18 @@ export default class Scene extends BaseScene {
     this.state.Id = "prologue";
   }
 
-  OnEnter() {
+  onEnter() {
     console.log("prologue enter");
-    Actions.Wait(2000).then(() => {
+    Actions.wait(2000).then(() => {
       console.log(GameFlags.CurrentScene);
     });
   }
 
-  OnShow() {
+  onShow() {
     console.log("prologue show");
   }
 
-  OnExit() {
+  onExit() {
     console.log("prologue exit");
   }
 
@@ -30,7 +30,7 @@ export default class Scene extends BaseScene {
         <div>Prologue</div>
         <button
           style={{ position: "absolute", left: "500px" }}
-          onClick={() => Actions.LoadScene("epilogue")}
+          onClick={() => Actions.loadScene("epilogue")}
         >
           Next
         </button>

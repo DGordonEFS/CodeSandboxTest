@@ -7,12 +7,6 @@ export default class Scene extends BaseScene {
     this.state.Id = "epilogue";
   }
 
-  OnEnter() {}
-
-  OnShow() {}
-
-  OnExit() {}
-
   output() {
     return (
       <div>
