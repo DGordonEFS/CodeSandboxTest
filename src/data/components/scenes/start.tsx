@@ -47,7 +47,7 @@ export default class Scene extends BaseScene {
             upImage="icon_use_up"
             overImage="icon_use_over"
             downImage="icon_use_over"
-            isButton="true"
+            isButton={false}
             text="hello"
             upStyle={{ color: "black" }}
             overStyle={{ color: "grey" }}

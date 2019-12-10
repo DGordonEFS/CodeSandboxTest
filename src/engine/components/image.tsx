@@ -82,13 +82,11 @@ export default class Image extends React.Component {
           break;
       }
 
-      var style = { width: this.props.width };
-
       return (
         <img
           src={imageURL}
           alt={imageURL}
-          style={style}
+          style={{ width: this.props.width }}
           draggable={draggable}
           onMouseEnter={() => this.onMouseEnter()}
           onMouseLeave={() => this.onMouseLeave()}
